@@ -21,8 +21,12 @@ app.set('views', 'public');
 app.set('view engine', 'ejs');
 
 app.get('/',function(req,res){
+  res.render('index');
+});
+
+app.get('/list',function(req,res){
   mDb.collection('course').find({}).toArray((err, courses) => {
-    res.render('index', {courses: courses});
+    res.render('list', {courses: courses});
   });
 });
 
