@@ -10,7 +10,6 @@ var mDb;
 
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
-  console.log("Connected succesfully to server");
   mDb = db;
 });
 
