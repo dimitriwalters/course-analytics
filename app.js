@@ -1,8 +1,10 @@
 var express = require("express");
 var bodyParser = require('body-parser')
-var MongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
 var assert = require('assert');
 
+var MongoClient = mongodb.MongoClient;
+var ObjectId = mongodb.ObjectID;
 var url = 'mongodb://localhost:27017/courses';
 var mDb;
 
@@ -26,6 +28,13 @@ app.get('/',function(req,res){
 
 app.post('/',function(req,res){
   mDb.collection('course').insert(req.body);
+  res.status(200);
+});
+
+app.delete('/',function(req,res){
+  mDb.collection('course').deleteOne({
+    _id: ObjectId(req.body.id),
+  });
   res.status(200);
 });
 
