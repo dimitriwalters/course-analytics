@@ -19,17 +19,17 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', 'public');
 app.set('view engine', 'ejs');
 
-app.get('/',function(req,res){
+app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/list',function(req,res){
+app.get('/list', function(req, res) {
   mDb.collection('course').find({}).toArray((err, courses) => {
     res.render('list', {courses: courses});
   });
 });
 
-app.post('/',function(req,res){
+app.post('/', function(req, res) {
   mDb.collection('course').insert(req.body, function(err) {
     if (err === null) {
       res.status(200).end();
@@ -39,7 +39,7 @@ app.post('/',function(req,res){
   });
 });
 
-app.delete('/',function(req,res){
+app.delete('/', function(req, res) {
   mDb.collection('course').deleteOne({
     _id: ObjectId(req.body.id),
   }, function(err) {
