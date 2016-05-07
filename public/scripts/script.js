@@ -10,8 +10,9 @@ $(document).ready(() => {
       type: 'POST',
       url: '/',
       data: JSON.stringify(formData),
+    }).done(function() {
+      window.location.reload();
     });
-    window.location.reload();
     event.preventDefault();
   });
   $('.delete-link').click(function(event) {
@@ -20,8 +21,9 @@ $(document).ready(() => {
       type: 'DELETE',
       url: '/',
       data: JSON.stringify({id: $(this).data('id')}),
+    }).done(function() {
+      window.location.reload();
     });
-    window.location.reload();
     event.preventDefault();
   });
 });

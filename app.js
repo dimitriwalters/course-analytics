@@ -30,15 +30,25 @@ app.get('/list',function(req,res){
 });
 
 app.post('/',function(req,res){
-  mDb.collection('course').insert(req.body);
-  res.status(200);
+  mDb.collection('course').insert(req.body, function(err) {
+    if (err === null) {
+      res.status(200).end();
+    } else {
+      res.status(500).end();
+    }
+  });
 });
 
 app.delete('/',function(req,res){
   mDb.collection('course').deleteOne({
     _id: ObjectId(req.body.id),
+  }, function(err) {
+    if (err === null) {
+      res.status(200).end();
+    } else {
+      res.status(500).end();
+    }
   });
-  res.status(200);
 });
 
 app.listen(3000);
