@@ -20,7 +20,11 @@ app.set('views', 'public');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  res.render('index');
+  var myCursor = mDb.collection('course').aggregate([{
+    $group: {_id: null, average: {$avg: "$grade"}}
+  }], function(err, results) {
+    res.render('index', {average: (results[0] ? results[0].average : 'N/A')});
+  });
 });
 
 app.get('/list', function(req, res) {
