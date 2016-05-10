@@ -1,3 +1,3 @@
-# courses
+# course-analytics
 
 Running analytics on courses
