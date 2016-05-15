@@ -20,10 +20,12 @@ app.set('views', 'public');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  mDb.collection('course').aggregate([{
-    $group: {_id: null, average: {$avg: "$grade"}}
-  }], function(err, results) {
-    res.render('index', {average: (results[0] ? results[0].average : 'N/A')});
+  mDb.collection('course').mapReduce(
+    function() { emit(null, this.grade) },
+    function(id, values) { return Array.sum(values)/values.length },
+    { out: {inline: 1} }
+  ).then(function(results) {
+    res.render('index', {average: (results[0] ? results[0].value : 'N/A')});
   });
 });
 
